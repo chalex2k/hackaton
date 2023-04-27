@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contest
+from .models import ContestModel
 
 
-admin.site.register(Contest)
+admin.site.register(ContestModel)

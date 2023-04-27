@@ -1,14 +1,14 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from .models import Contest
+from .models import ContestModel
 
 
 class ContestSerializer(serializers.ModelSerializer):
     organizer_name = serializers.ReadOnlyField(source='organizer.name')
 
     class Meta:
-        model = Contest
+        model = ContestModel
         fields = ['id', 'name', 'description', 'datetime_start', 'datetime_end', 'city', 'format', 'feeding',
                   'difficulty', 'type', 'organizer_name']
 

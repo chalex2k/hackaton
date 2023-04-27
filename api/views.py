@@ -4,7 +4,7 @@ from rest_framework_simplejwt import authentication
 
 from . import serializers
 from django.contrib.auth.models import User
-from .models import Contest
+from .models import ContestModel
 
 
 class UserList(generics.ListAPIView):
@@ -27,7 +27,7 @@ class UserDetail(generics.GenericAPIView):
 
 
 class ContestList(generics.ListCreateAPIView):
-    queryset = Contest.objects.all()
+    queryset = ContestModel.objects.all()
     serializer_class = serializers.ContestSerializer
 
     def perform_create(self, serializer):
@@ -35,5 +35,5 @@ class ContestList(generics.ListCreateAPIView):
 
 
 class ContestDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Contest.objects.all()
+    queryset = ContestModel.objects.all()
     serializer_class = serializers.ContestSerializer
