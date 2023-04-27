@@ -54,8 +54,6 @@ class ContestParticipant(models.Model):
     contest_id = models.ForeignKey('Contest', on_delete=models.DO_NOTHING)
     participant_id = models.ForeignKey('auth.User', on_delete=models.DO_NOTHING)
     position = models.IntegerField()
-    positive_feedback = models.TextField()
-    negative_feedback = models.TextField()
-    common_feedback = models.TextField()
-    mark_feedback = models.IntegerField()
+    feedback = models.TextField()
+    mark = models.IntegerField()
 
