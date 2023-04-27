@@ -71,4 +71,6 @@ class ContestParticipantThroughModel(models.Model):
 
 
 
-
+class ContestPartners(models.Model):
+    contest_id = models.ForeignKey('Contest', on_delete=models.DO_NOTHING)
+    participant_id = models.ForeignKey('UserModel', on_delete=models.DO_NOTHING)
