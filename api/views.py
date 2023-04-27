@@ -8,19 +8,18 @@ from .models import ContestModel
 from .serializers import ContestSerializer
 
 
-class UserList(generics.ListAPIView):
+class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
 
-    swagger_auto_schema(responses={
+    @swagger_auto_schema(responses={
         status.HTTP_200_OK: serializer_class,
         status.HTTP_401_UNAUTHORIZED: {}})
-
     def get(self, request):
         return self.list(request)
 
 
-class UserDetail(generics.GenericAPIView):
+class UserDetailView(generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (authentication.JWTAuthentication,)
 
@@ -34,12 +33,9 @@ class UserDetail(generics.GenericAPIView):
         pass
 
 
-class ContestList(generics.ListCreateAPIView):
-    # queryset = ContestModel.objects.all()
+class ContestListView(generics.ListCreateAPIView):
+    queryset = ContestModel.objects.all()
     serializer_class = ContestSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
     @swagger_auto_schema(responses={
         status.HTTP_200_OK: serializer_class,
@@ -48,6 +44,16 @@ class ContestList(generics.ListCreateAPIView):
         return self.list(request)
 
 
-class ContestDetail(generics.RetrieveUpdateDestroyAPIView):
+class ContestDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ContestModel.objects.all()
     serializer_class = serializers.ContestSerializer
+
+    def get(self, request):
+        pass
+
+    def delete(self, request, *args, **kwargs):
+        pass
+
+
+class FavoritesView(generics.GenericAPIView):
+    pass
