@@ -16,8 +16,8 @@ class Contest(models.Model):
     datetime_start = models.DateTimeField(blank=False)
     datetime_end = models.DateTimeField(blank=False)
     organizer = models.ForeignKey('UserModel', related_name='contests', on_delete=models.DO_NOTHING)
-    city = models.TextField(blank=True)  # TODO FK
-    format = models.TextField(default=0, choices=CONTEST_FORMAT)  # TODO FK
+    city = models.ForeignKey('City', on_delete=models.DO_NOTHING)
+    format = models.TextField(default=0, choices=CONTEST_FORMAT)
     feeding = models.BooleanField()
     difficulty = models.IntegerField()
     type = models.IntegerField(default=0, choices=CONTEST_TYPE)
@@ -44,6 +44,7 @@ class UserModel(User):
     name = models.CharField()
     rating = models.IntegerField()
     type = models.IntegerField(default=0, choices=USER_TYPE)
+    city = models.ForeignKey('City', on_delete=models.DO_NOTHING)
 
 
 class City(models.Model):
