@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Contest(models.Model):
@@ -30,6 +31,19 @@ class Contest(models.Model):
 
     class Meta:
         ordering = ['-datetime_start']
+
+
+class UserModel(User):
+    USER_TYPE = [
+        (0, "sportsman"),
+        (1, "partner"),
+        (2, "regional"),
+        (3, "admin")
+    ]
+
+    name = models.CharField()
+    rating = models.IntegerField()
+    type = models.IntegerField(default=0, choices=USER_TYPE)
 
 
 class City(models.Model):
