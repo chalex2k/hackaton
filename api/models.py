@@ -34,7 +34,7 @@ class ContestModel(models.Model):
 
 
 class TeamModel(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=255)
 
 
 class UserModel(User):
@@ -45,7 +45,7 @@ class UserModel(User):
         (3, "admin")
     ]
 
-    name = models.CharField()
+    name = models.CharField(max_length=255)
     rating = models.IntegerField()
     type = models.IntegerField(default=0, choices=USER_TYPE)
     city = models.ForeignKey('CityModel', on_delete=models.DO_NOTHING)
@@ -53,7 +53,7 @@ class UserModel(User):
 
 
 class CityModel(models.Model):
-    name = models.TextField(blank=False)
+    name = models.CharField(blank=False, max_length=255)
 
 
 class ContestParticipantThroughModel(models.Model):
@@ -70,7 +70,6 @@ class ContestParticipantThroughModel(models.Model):
     mark_quality = models.IntegerField()
 
 
-
-class ContestPartners(models.Model):
-    contest_id = models.ForeignKey('Contest', on_delete=models.DO_NOTHING)
+class ContestPartnersModel(models.Model):
+    contest_id = models.ForeignKey('ContestModel', on_delete=models.DO_NOTHING)
     participant_id = models.ForeignKey('UserModel', on_delete=models.DO_NOTHING)

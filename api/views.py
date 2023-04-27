@@ -11,6 +11,12 @@ class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
 
+    swagger_auto_schema(responses={
+        status.HTTP_200_OK: serializer_class,
+        status.HTTP_401_UNAUTHORIZED: {}})
+    def get(self, request):
+        return self.list(request)
+
 
 class UserDetail(generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
