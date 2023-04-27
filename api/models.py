@@ -15,7 +15,7 @@ class Contest(models.Model):
     description = models.TextField(blank=False)
     datetime_start = models.DateTimeField(blank=False)
     datetime_end = models.DateTimeField(blank=False)
-    organizer = models.ForeignKey('auth.User', related_name='contests', on_delete=models.DO_NOTHING)
+    organizer = models.ForeignKey('UserModel', related_name='contests', on_delete=models.DO_NOTHING)
     city = models.TextField(blank=True)  # TODO FK
     format = models.TextField(default=0, choices=CONTEST_FORMAT)  # TODO FK
     feeding = models.BooleanField()
@@ -23,8 +23,8 @@ class Contest(models.Model):
     type = models.IntegerField(default=0, choices=CONTEST_TYPE)
     active = models.BooleanField(default=False, blank=False)
     employer = models.TextField(default='', blank=False)
-    image_path = models.TextField(default='', blank=False)
-    participants = models.ManyToManyField("auth.User", through='ContestParticipant')
+    image_path = models.ImageField(upload_to="img") # todo move to config
+    participants = models.ManyToManyField("UserModel", through='ContestParticipant')
     # title = models.CharField(max_length=100, blank=True, default='')
     # body = models.TextField(blank=True, default='')
     # owner = models.ForeignKey('auth.User', related_name='posts', on_delete=models.CASCADE)
