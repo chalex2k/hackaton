@@ -5,6 +5,7 @@ from rest_framework_simplejwt import authentication
 from . import serializers
 from django.contrib.auth.models import User
 from .models import ContestModel
+from .serializers import ContestSerializer
 
 
 class UserList(generics.ListAPIView):
@@ -14,6 +15,7 @@ class UserList(generics.ListAPIView):
     swagger_auto_schema(responses={
         status.HTTP_200_OK: serializer_class,
         status.HTTP_401_UNAUTHORIZED: {}})
+
     def get(self, request):
         return self.list(request)
 
@@ -33,11 +35,17 @@ class UserDetail(generics.GenericAPIView):
 
 
 class ContestList(generics.ListCreateAPIView):
-    queryset = ContestModel.objects.all()
-    serializer_class = serializers.ContestSerializer
+    # queryset = ContestModel.objects.all()
+    serializer_class = ContestSerializer
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    @swagger_auto_schema(responses={
+        status.HTTP_200_OK: serializer_class,
+        status.HTTP_401_UNAUTHORIZED: {}})
+    def get(self, request):
+        return self.list(request)
 
 
 class ContestDetail(generics.RetrieveUpdateDestroyAPIView):

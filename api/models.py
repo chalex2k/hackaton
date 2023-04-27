@@ -73,3 +73,13 @@ class ContestParticipantThroughModel(models.Model):
 class ContestPartnersModel(models.Model):
     contest_id = models.ForeignKey('ContestModel', on_delete=models.DO_NOTHING)
     participant_id = models.ForeignKey('UserModel', on_delete=models.DO_NOTHING)
+
+
+class Favorites(models.Model):
+
+    user = models.CharField(max_length=255)
+    contest = models.ForeignKey(ContestModel, on_delete=models.CASCADE, related_name="favorites")
+    on_create = models.DateField(auto_now_add=True)
+
+    class Meta:
+        indexes = [models.Index(fields=['user', 'contest'])]
