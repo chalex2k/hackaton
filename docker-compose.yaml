@@ -7,4 +7,7 @@ services:
     image: sp_application:v1
     ports:
       - "8000:8000"
+    volumes:
+      - "./db.sqlite3:/app/db.sqlite3"
+      - "./identifier.sqlite:/app/identifier.sqlite"
     container_name: sp_application
